@@ -8,7 +8,7 @@
     cd beam-framework
     mvn clean install -Dmaven.test.skip
 
-#### Dependency
+#### Maven Dependency
 
     <dependency>
         <groupId>net.beamlight</groupId>
