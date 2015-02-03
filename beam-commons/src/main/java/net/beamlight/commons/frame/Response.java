@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.beamlight.commons.util.JsonUtils;
+
 /**
  * @author gaofeihang
  * @since Feb 3, 2015
@@ -39,9 +41,13 @@ public class Response implements Serializable {
     }
     
     @SuppressWarnings("unchecked")
-    public <T> T getProperty(String k, Class<T> t) {
-        Object obj = props.get(k);
-        return obj == null ? null : (T) obj;
+    public <T> T getProperty(String k) {
+        return (T) props.get(k);
+    }
+    
+    @Override
+    public String toString() {
+        return JsonUtils.toJSON(this);
     }
 
 }

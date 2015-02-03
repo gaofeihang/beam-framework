@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.beamlight.commons.util.JsonUtils;
+
 /**
  * @author gaofeihang
  * @since Feb 3, 2015
@@ -33,9 +35,13 @@ public class Request implements Serializable {
     }
     
     @SuppressWarnings("unchecked")
-    public <T> T getParam(String k, Class<T> t) {
-        Object obj = params.get(k);
-        return obj == null ? null : (T) obj;
+    public <T> T getParam(String k) {
+        return (T) params.get(k);
+    }
+    
+    @Override
+    public String toString() {
+        return JsonUtils.toJSON(this);
     }
 
 }
