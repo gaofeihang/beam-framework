@@ -1,21 +1,21 @@
-package net.beamlight.util;
+package net.beamlight.commons.util;
 
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 /**
  * @author gaofeihang
- * @since Jan 30, 2015
+ * @since Jan 31, 2015
  */
 public class JsonUtils {
 
-	private static Logger logger = Logger.getLogger(JsonUtils.class);
+	private static final Logger logger = LoggerFactory.getLogger(JsonUtils.class);
 
-	// each thread has its own ObjectMapper instance
 	private static ThreadLocal<ObjectMapper> objMapperLocal = new ThreadLocal<ObjectMapper>() {
 		@Override
 		public ObjectMapper initialValue() {
@@ -35,7 +35,7 @@ public class JsonUtils {
 		try {
 			result = objMapperLocal.get().writeValueAsString(value);
 		} catch (Exception e) {
-			logger.error("toJSON error: " + value, e);
+			logger.error("toJSON error: {}", value, e);
 		}
 		// fix null string
 		if ("null".equals(result)) {
@@ -48,7 +48,7 @@ public class JsonUtils {
 		try {
 			return objMapperLocal.get().readValue(jsonString, clazz);
 		} catch (Exception e) {
-			logger.error("toJSON error: " + jsonString, e);
+		    logger.error("toT error: {}", jsonString, e);
 		}
 		return null;
 	}
@@ -63,7 +63,7 @@ public class JsonUtils {
 		try {
 			result = prettyObjMapperLocal.get().writeValueAsString(value);
 		} catch (Exception e) {
-			logger.error("prettyPrint error: " + value, e);
+			logger.error("prettyPrint error: {}", value, e);
 		}
 		// fix null string
 		if ("null".equals(result)) {

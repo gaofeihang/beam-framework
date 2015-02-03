@@ -1,8 +1,8 @@
-package net.beamlight.bean;
+package net.beamlight.commons.test;
 
 /**
  * @author gaofeihang
- * @since Jan 30, 2015
+ * @since Jan 31, 2015
  */
 public class Person {
 	
