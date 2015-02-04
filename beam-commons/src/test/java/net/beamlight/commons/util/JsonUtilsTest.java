@@ -4,6 +4,7 @@ import java.util.Map;
 
 import net.beamlight.commons.test.Person;
 import net.beamlight.commons.test.TestUtils;
+import net.beamlight.commons.util.JsonUtils;
 
 import org.junit.Test;
 import org.slf4j.Logger;
