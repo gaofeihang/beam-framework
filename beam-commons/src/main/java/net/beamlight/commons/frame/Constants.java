@@ -6,7 +6,7 @@ package net.beamlight.commons.frame;
  */
 public class Constants {
     
-    public static final String  KEY_REQUEST_METHOD = "m";
+    public static final String  KEY_REQUEST_METHOD = "method";
     public static final String  KEY_REQUEST_ARGUMENTS = "args";
     
     public static final String  KEY_RESPONSE_ERROR_MESSAGE = "em";

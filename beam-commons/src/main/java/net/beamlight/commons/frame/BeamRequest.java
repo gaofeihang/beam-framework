@@ -10,26 +10,38 @@ import net.beamlight.commons.util.JsonUtils;
  * @author gaofeihang
  * @since Feb 3, 2015
  */
-public class Request implements Serializable {
+public class BeamRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    private String action;
+    private String id;
+    private String cmd;
     private Map<String, Object> params = new HashMap<String, Object>();
     
-    public Request(String action) {
-        this.action = action;
+    public BeamRequest() {
     }
     
-    public String getAction() {
-        return action;
+    public BeamRequest(String cmd) {
+        this.cmd = cmd;
     }
     
-    public void setAction(String action) {
-        this.action = action;
+    public String getId() {
+        return id;
     }
     
-    public Request setParam(String k, Object v) {
+    public void setId(String id) {
+        this.id = id;
+    }
+    
+    public String getCmd() {
+        return cmd;
+    }
+    
+    public void setCmd(String cmd) {
+        this.cmd = cmd;
+    }
+    
+    public BeamRequest setParam(String k, Object v) {
         params.put(k, v);
         return this;
     }

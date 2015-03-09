@@ -10,13 +10,22 @@ import net.beamlight.commons.util.JsonUtils;
  * @author gaofeihang
  * @since Feb 3, 2015
  */
-public class Response implements Serializable {
+public class BeamResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
+    private String id;
     private Object result;
     private Integer ec;
     private Map<String, Object> props = new HashMap<String, Object>();
+    
+    public String getId() {
+        return id;
+    }
+    
+    public void setId(String id) {
+        this.id = id;
+    }
     
     @SuppressWarnings("unchecked")
     public <T> T getResult() {
@@ -35,7 +44,7 @@ public class Response implements Serializable {
         this.ec = ec;
     }
     
-    public Response setProperty(String k, Object v) {
+    public BeamResponse setProperty(String k, Object v) {
         props.put(k, v);
         return this;
     }
