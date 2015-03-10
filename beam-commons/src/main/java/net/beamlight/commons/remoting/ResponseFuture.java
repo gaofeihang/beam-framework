@@ -9,8 +9,6 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import net.beamlight.commons.frame.BeamResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,19 +16,19 @@ import org.slf4j.LoggerFactory;
  * @author gaofeihang
  * @since Feb 12, 2015
  */
-public class ResponseFuture implements Future<BeamResponse> {
+public class ResponseFuture implements Future<RemotingResponse> {
     
     private static final Logger logger = LoggerFactory.getLogger(ResponseFuture.class); 
     
-    private static ConcurrentHashMap<String, ResponseFuture> futureMap = new ConcurrentHashMap<String, ResponseFuture>();
+    private static ConcurrentHashMap<Integer, ResponseFuture> futureMap = new ConcurrentHashMap<Integer, ResponseFuture>();
     
     private Lock lock = new ReentrantLock();
     private Condition condition = lock.newCondition();
     
-    private String requestId;
-    private volatile BeamResponse response;
+    private Integer requestId;
+    private volatile RemotingResponse response;
     
-    public ResponseFuture(String requestId) {
+    public ResponseFuture(Integer requestId) {
         this.requestId = requestId;
         
         if (futureMap.putIfAbsent(requestId, this) != null) {
@@ -38,15 +36,15 @@ public class ResponseFuture implements Future<BeamResponse> {
         }
     }
     
-    public static void receiveResponse(BeamResponse response) {
-        String requestId = response.getId();
+    public static void receiveResponse(RemotingResponse response) {
+        Integer requestId = response.getId();
         ResponseFuture future = futureMap.remove(requestId);
         if (future != null) {
             future.setResponse(response);
         }
     }
     
-    public void setResponse(BeamResponse response) {
+    public void setResponse(RemotingResponse response) {
         this.response = response;
         
         try {
@@ -73,7 +71,7 @@ public class ResponseFuture implements Future<BeamResponse> {
     }
 
     @Override
-    public BeamResponse get() throws InterruptedException, ExecutionException {
+    public RemotingResponse get() throws InterruptedException, ExecutionException {
         
         try {
             lock.lock();
@@ -86,7 +84,7 @@ public class ResponseFuture implements Future<BeamResponse> {
     }
 
     @Override
-    public BeamResponse get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+    public RemotingResponse get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
         
         try {
             lock.lock();

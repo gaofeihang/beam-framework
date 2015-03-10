@@ -14,18 +14,9 @@ public class BeamResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    private String id;
     private Object result;
     private Integer ec;
     private Map<String, Object> props = new HashMap<String, Object>();
-    
-    public String getId() {
-        return id;
-    }
-    
-    public void setId(String id) {
-        this.id = id;
-    }
     
     @SuppressWarnings("unchecked")
     public <T> T getResult() {

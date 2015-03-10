@@ -14,7 +14,6 @@ public class BeamRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    private String id;
     private String cmd;
     private Map<String, Object> params = new HashMap<String, Object>();
     
@@ -23,14 +22,6 @@ public class BeamRequest implements Serializable {
     
     public BeamRequest(String cmd) {
         this.cmd = cmd;
-    }
-    
-    public String getId() {
-        return id;
-    }
-    
-    public void setId(String id) {
-        this.id = id;
     }
     
     public String getCmd() {
