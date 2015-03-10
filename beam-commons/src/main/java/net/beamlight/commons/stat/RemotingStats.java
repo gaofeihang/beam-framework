@@ -49,6 +49,12 @@ public class RemotingStats {
                 }
             }, 0, 1, TimeUnit.SECONDS);
         }
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                close();
+            }
+        });
     }
     
     public static void close() {

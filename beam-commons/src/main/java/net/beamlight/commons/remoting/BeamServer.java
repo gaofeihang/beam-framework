@@ -8,6 +8,6 @@ public interface BeamServer {
     
     void start();
     
-    void close();
+    void stop();
 
 }

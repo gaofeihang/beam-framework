@@ -9,9 +9,9 @@ import net.beamlight.commons.util.ByteArrayUtils;
 public class BeamPacket {
     
     public static final byte[] DELIMITER = new byte[] { '\r', '\n' };
-    
-    private static final int HEADER_LENGTH = 4 + 1 + 4;
-    private static final int DELIMITER_LENGTH = DELIMITER.length;
+    public static final int LENGTH_FIELD_OFFSET = 4 + 1;
+    public static final int LENGTH_FIELD_LENGTH = 4;
+    public static final int BASE_LENGTH = LENGTH_FIELD_OFFSET + LENGTH_FIELD_LENGTH + DELIMITER.length;
     
     private int id = -1;
     private byte type;
@@ -22,7 +22,7 @@ public class BeamPacket {
         this.id = id;
         this.type = type;
         this.data = data;
-        this.length = HEADER_LENGTH + data.length + DELIMITER_LENGTH;
+        this.length = BASE_LENGTH + data.length;
     }
     
     public int getId() {
@@ -43,10 +43,6 @@ public class BeamPacket {
     
     public int getDataLength() {
         return data.length;
-    }
-    
-    public int getDelimiterLength() {
-        return DELIMITER_LENGTH;
     }
     
     @Override

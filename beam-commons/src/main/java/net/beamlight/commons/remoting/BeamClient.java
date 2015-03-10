@@ -1,5 +1,6 @@
 package net.beamlight.commons.remoting;
 
+import net.beamlight.commons.exception.RemotingException;
 import net.beamlight.commons.frame.BeamRequest;
 import net.beamlight.commons.frame.BeamResponse;
 
@@ -9,12 +10,12 @@ import net.beamlight.commons.frame.BeamResponse;
  */
 public interface BeamClient {
     
-    void start();
+    void open() throws RemotingException;
     
     void close();
     
-    void send(BeamRequest request);
+    void send(BeamRequest request) throws RemotingException;
     
-    BeamResponse sendAndGet(BeamRequest request);
+    BeamResponse sendAndGet(BeamRequest request) throws RemotingException;
 
 }
