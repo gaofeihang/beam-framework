@@ -1,4 +1,4 @@
-package net.beamlight.commons.remoting;
+package net.beamlight.remoting;
 
 import net.beamlight.commons.exception.RemotingException;
 import net.beamlight.commons.frame.BeamRequest;

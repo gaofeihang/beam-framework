@@ -1,4 +1,4 @@
-package net.beamlight.commons.remoting;
+package net.beamlight.remoting;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
