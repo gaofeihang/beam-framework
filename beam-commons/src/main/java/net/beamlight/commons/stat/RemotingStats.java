@@ -21,6 +21,9 @@ public class RemotingStats {
     private static Counter readCounter = new Counter();
     private static Counter writeCounter = new Counter();
     
+    private static long prevCount;
+    private static int interval = 10;
+    
     private static ScheduledExecutorService scheduledExecutorService;
     private static AtomicBoolean inited = new AtomicBoolean(false);
     
@@ -37,18 +40,30 @@ public class RemotingStats {
     public static void start() {
         
         if (inited.compareAndSet(false, true)) {
-            scheduledExecutorService = Executors.newScheduledThreadPool(1);
+            scheduledExecutorService = Executors.newScheduledThreadPool(2);
             scheduledExecutorService.scheduleWithFixedDelay(new Runnable() {
                 
                 @Override
                 public void run() {
-                    
                     logger.warn(appName + " Stats - read: {}, write: {}",
                             readCounter.getCountChange(),
                             writeCounter.getCountChange());
                 }
             }, 0, 1, TimeUnit.SECONDS);
+            
+            scheduledExecutorService.scheduleWithFixedDelay(new Runnable() {
+                
+                @Override
+                public void run() {
+                    long readCount = writeCounter.getCount();
+                    long average = (readCount - prevCount) / interval;
+                    prevCount = readCount;
+                    logger.warn(appName + " Average - QPS: {}", average);
+                            
+                }
+            }, 0, interval, TimeUnit.SECONDS);
         }
+        
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
