@@ -1,8 +1,6 @@
 package net.beamlight.remoting;
 
-import net.beamlight.commons.exception.RemotingException;
-import net.beamlight.commons.frame.BeamRequest;
-import net.beamlight.commons.frame.BeamResponse;
+import net.beamlight.remoting.exception.RemotingException;
 
 /**
  * @author gaofeihang
@@ -14,8 +12,8 @@ public interface BeamClient {
     
     void close();
     
-    void send(BeamRequest request) throws RemotingException;
+    void send(BeamPacket packet) throws RemotingException;
     
-    BeamResponse sendAndGet(BeamRequest request) throws RemotingException;
+    BeamPacket sendAndGet(BeamPacket packet) throws RemotingException;
 
 }

@@ -1,4 +1,4 @@
-package net.beamlight.commons.exception;
+package net.beamlight.remoting.exception;
 
 /**
  * @author gaofeihang

@@ -14,22 +14,22 @@ public class BeamRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    private String cmd;
+    private String service;
     private Map<String, Object> params = new HashMap<String, Object>();
     
     public BeamRequest() {
     }
     
-    public BeamRequest(String cmd) {
-        this.cmd = cmd;
+    public BeamRequest(String service) {
+        this.service = service;
     }
     
-    public String getCmd() {
-        return cmd;
+    public String getService() {
+        return service;
     }
     
-    public void setCmd(String cmd) {
-        this.cmd = cmd;
+    public void setService(String service) {
+        this.service = service;
     }
     
     public BeamRequest setParam(String k, Object v) {
