@@ -28,7 +28,7 @@ public class BeamClientBootstrap {
             
             for (int i = 0; i < msgCount; i++) {
                 BeamPacket respPacket = client.sendAndGet(
-                        PacketUtils.encode(new BeamRequest("test"), Protocol.CODEC_JSON));
+                        PacketUtils.encode(new BeamRequest("test"), Protocol.CMD_REQUEST, Protocol.CODEC_JSON));
                 BeamResponse response = PacketUtils.decode(respPacket, BeamResponse.class);
                 System.out.println(response);
             }

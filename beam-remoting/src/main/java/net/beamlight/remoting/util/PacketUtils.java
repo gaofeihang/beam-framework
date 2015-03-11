@@ -10,10 +10,13 @@ import net.beamlight.remoting.serialize.SerializerFactory;
  */
 public class PacketUtils {
     
-    public static BeamPacket encode(Object request, byte codec) {
-        byte[] data = SerializerFactory.getSerializer(codec).serialize(request);
-        BeamPacket packet = new BeamPacket(Protocol.nextReqId(), 
-                Protocol.CMD_REQUEST, codec, data);
+    public static BeamPacket encode(Object obj, byte cmd, byte codec) {
+        return encode(obj, Protocol.nextReqId(), cmd, codec);
+    }
+    
+    public static BeamPacket encode(Object obj, int id, byte cmd, byte codec) {
+        byte[] data = SerializerFactory.getSerializer(codec).serialize(obj);
+        BeamPacket packet = new BeamPacket(id, cmd, codec, data);
         return packet;
     }
     
