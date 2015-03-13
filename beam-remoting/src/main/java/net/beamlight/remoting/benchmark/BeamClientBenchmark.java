@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 
 import net.beamlight.commons.frame.BeamRequest;
 import net.beamlight.commons.util.ThreadUtils;
+import net.beamlight.core.serialize.Codec;
 import net.beamlight.remoting.BeamClient;
 import net.beamlight.remoting.Protocol;
 import net.beamlight.remoting.exception.RemotingException;
@@ -55,7 +56,7 @@ public class BeamClientBenchmark {
                         for (int j = 0; j < loopNum; j++) {
                             try {
                                 client.sendAndGet(
-                                        PacketUtils.encode(new BeamRequest("test"), Protocol.CMD_REQUEST, Protocol.CODEC_MSGPACK));
+                                        PacketUtils.encode(new BeamRequest("test"), Protocol.CMD_REQUEST, Codec.MSGPACK));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
