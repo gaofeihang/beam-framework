@@ -1,6 +1,4 @@
-package net.beamlight.remoting.serialize;
-
-import net.beamlight.remoting.Protocol;
+package net.beamlight.core.serialize;
 
 /**
  * @author gaofeihang
@@ -13,10 +11,10 @@ public class SerializerFactory {
     
     public static Serializer getSerializer(byte codec) {
         switch (codec) {
-        case Protocol.CODEC_JSON:
+        case Codec.JSON:
             return jsonSerializer;
         
-        case Protocol.CODEC_MSGPACK:
+        case Codec.MSGPACK:
             return msgPackSerializer;
 
         default:

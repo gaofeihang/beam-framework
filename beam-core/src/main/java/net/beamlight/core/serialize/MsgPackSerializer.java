@@ -1,4 +1,4 @@
-package net.beamlight.remoting.serialize;
+package net.beamlight.core.serialize;
 
 import net.beamlight.commons.util.MsgPackUtils;
 

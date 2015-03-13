@@ -47,5 +47,5 @@ public class MsgPackUtils {
     public static Map<String, Object> toMap(byte[] bytes) {
         return decode(bytes, Map.class);
     }
-
+    
 }

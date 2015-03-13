@@ -1,5 +1,7 @@
-package net.beamlight.commons.stat;
+package net.beamlight.remoting.stat;
 
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -20,7 +22,10 @@ public class RemotingStats {
     
     private static Counter readCounter = new Counter();
     private static Counter writeCounter = new Counter();
+    private static ConcurrentHashMap<String, Counter> ioWriteCounters = new ConcurrentHashMap<String, Counter>();
     
+    private static int round;
+    private static long maxAverage;
     private static long prevCount;
     private static int interval = 10;
     
@@ -37,6 +42,16 @@ public class RemotingStats {
         writeCounter.inc();
     }
     
+    public static void recordWriiteTime(long time) {
+        String threadName = Thread.currentThread().getName();
+        Counter counter = ioWriteCounters.get(threadName);
+        if (counter == null) {
+            ioWriteCounters.putIfAbsent(threadName, new Counter());
+        } else {
+            counter.inc(time);
+        }
+    }
+    
     public static void start() {
         
         if (inited.compareAndSet(false, true)) {
@@ -48,6 +63,11 @@ public class RemotingStats {
                     logger.warn(appName + " Stats - read: {}, write: {}",
                             readCounter.getCountChange(),
                             writeCounter.getCountChange());
+                    
+                    for (Entry<String, Counter> entry : ioWriteCounters.entrySet()) {
+                        logger.warn(appName + " IoStats - thread: {}, time: {}",
+                                entry.getKey(), entry.getValue().getCountChange());
+                    }
                 }
             }, 0, 1, TimeUnit.SECONDS);
             
@@ -55,10 +75,14 @@ public class RemotingStats {
                 
                 @Override
                 public void run() {
-                    long readCount = writeCounter.getCount();
-                    long average = (readCount - prevCount) / interval;
-                    prevCount = readCount;
-                    logger.warn(appName + " Average - QPS: {}", average);
+                    long writeCount = writeCounter.getCount();
+                    long average = (writeCount - prevCount) / interval;
+                    maxAverage = average > maxAverage ? average : maxAverage;
+                    prevCount = writeCount;
+                    if (average > 0) {
+                        round++;
+                    }
+                    logger.warn(appName + " Average - Round: {}, QPS: {}, Max: {}", round, average, maxAverage);
                             
                 }
             }, 0, interval, TimeUnit.SECONDS);

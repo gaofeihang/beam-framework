@@ -46,7 +46,7 @@ public class ByteArrayUtils {
     }
     
     private static String getHexString(byte b) {
-        int i = b < 0 ? b + 256 : b;
+        int i = b & 0xFF;
         return "0x" + HEX_CHAR[i / 16] + HEX_CHAR[i % 16];
     }
 

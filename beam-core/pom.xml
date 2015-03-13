@@ -6,16 +6,12 @@
         <artifactId>beam-framework</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>beam-remoting</artifactId>
-
+    <artifactId>beam-core</artifactId>
+    
     <dependencies>
         <dependency>
             <groupId>net.beamlight</groupId>
             <artifactId>beam-commons</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.beamlight</groupId>
-            <artifactId>beam-core</artifactId>
         </dependency>
     </dependencies>
 </project>

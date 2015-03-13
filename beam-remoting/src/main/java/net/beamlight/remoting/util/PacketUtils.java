@@ -1,8 +1,8 @@
 package net.beamlight.remoting.util;
 
+import net.beamlight.core.serialize.SerializerFactory;
 import net.beamlight.remoting.BeamPacket;
 import net.beamlight.remoting.Protocol;
-import net.beamlight.remoting.serialize.SerializerFactory;
 
 /**
  * @author gaofeihang
