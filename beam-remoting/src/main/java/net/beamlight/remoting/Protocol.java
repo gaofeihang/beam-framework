@@ -15,9 +15,6 @@ public class Protocol {
     public static final byte CMD_REQUEST = 1;
     public static final byte CMD_RESPONSE = 2;
     
-    public static final byte CODEC_JSON = 1;
-    public static final byte CODEC_MSGPACK = 2;
-    
     public static int nextReqId() {
         return REQ_ID.incrementAndGet();
     }
