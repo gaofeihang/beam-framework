@@ -1,6 +1,6 @@
 package net.beamlight.remoting;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author gaofeihang
@@ -8,15 +8,15 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Protocol {
     
-    private static final AtomicInteger REQ_ID = new AtomicInteger(0);
+    private static final AtomicLong REQ_ID = new AtomicLong(0);
     
     public static final byte DEFAULT_VERSION = 1;
     
     public static final byte CMD_REQUEST = 1;
     public static final byte CMD_RESPONSE = 2;
     
-    public static int nextReqId() {
+    public static long nextReqId() {
         return REQ_ID.incrementAndGet();
     }
-
+    
 }

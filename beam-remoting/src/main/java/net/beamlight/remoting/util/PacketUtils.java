@@ -14,7 +14,7 @@ public class PacketUtils {
         return encode(obj, Protocol.nextReqId(), cmd, codec);
     }
     
-    public static BeamPacket encode(Object obj, int id, byte cmd, byte codec) {
+    public static BeamPacket encode(Object obj, long id, byte cmd, byte codec) {
         byte[] data = SerializerFactory.getSerializer(codec).serialize(obj);
         BeamPacket packet = new BeamPacket(id, cmd, codec, data);
         return packet;

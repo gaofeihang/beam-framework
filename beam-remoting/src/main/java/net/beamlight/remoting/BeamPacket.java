@@ -10,20 +10,19 @@ import net.beamlight.commons.util.ByteArrayUtils;
  */
 public class BeamPacket {
     
-    public static final byte[] DELIMITER = new byte[] { '\r', '\n' };
-    public static final int LENGTH_FIELD_OFFSET = 4 + 1 + 1 + 1;
+    public static final short MAGIC = (short) 0xBEAF;
+    public static final int LENGTH_FIELD_OFFSET = 2 + 8 + 1 + 1 + 1;
     public static final int LENGTH_FIELD_LENGTH = 4;
     public static final int BASE_LENGTH = LENGTH_FIELD_OFFSET + LENGTH_FIELD_LENGTH;
-    public static final int DELIMITER_LENGTH = DELIMITER.length;
     
-    private int id = -1;
+    private long id = -1;
     private byte version;
     private byte cmd;
     private byte codec;
     private int length;
     private byte[] data;
     
-    public BeamPacket(int id, byte cmd, byte codec, byte[] data) {
+    public BeamPacket(long id, byte cmd, byte codec, byte[] data) {
         this.id = id;
         this.version = Protocol.DEFAULT_VERSION;
         this.cmd = cmd;
@@ -32,7 +31,7 @@ public class BeamPacket {
         this.length = data.length;
     }
     
-    public int getId() {
+    public long getId() {
         return id;
     }
     
@@ -67,7 +66,8 @@ public class BeamPacket {
     public byte[] toByteArray() {
         ByteBuffer buffer = ByteBuffer.allocate(getPacketLength());
         
-        buffer.putInt(id);
+        buffer.putShort(MAGIC);
+        buffer.putLong(id);
         buffer.put(version);
         buffer.put(cmd);
         buffer.put(codec);
@@ -80,7 +80,8 @@ public class BeamPacket {
     public static BeamPacket parseFrom(byte[] bytes) {
         ByteBuffer buffer = ByteBuffer.wrap(bytes);
         
-        int id = buffer.getInt();
+        buffer.getShort();
+        long id = buffer.getLong();
         byte version = buffer.get();
         byte cmd = buffer.get();
         byte codec = buffer.get();

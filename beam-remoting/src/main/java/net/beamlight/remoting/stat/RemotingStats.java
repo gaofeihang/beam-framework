@@ -32,7 +32,9 @@ public class RemotingStats {
     private static ScheduledExecutorService scheduledExecutorService;
     private static AtomicBoolean inited = new AtomicBoolean(false);
     
-    private static String appName = System.getProperty("kiteq.appName", "");
+    private static String appName = System.getProperty("beam.appName", "");
+    
+    private static boolean logTimeStat = false;
     
     public static void recordRead() {
         readCounter.inc();
@@ -64,9 +66,11 @@ public class RemotingStats {
                             readCounter.getCountChange(),
                             writeCounter.getCountChange());
                     
-                    for (Entry<String, Counter> entry : ioWriteCounters.entrySet()) {
-                        logger.warn(appName + " IoStats - thread: {}, time: {}",
-                                entry.getKey(), entry.getValue().getCountChange());
+                    if (logTimeStat) {
+                        for (Entry<String, Counter> entry : ioWriteCounters.entrySet()) {
+                            logger.warn(appName + " IoStats - thread: {}, time: {}",
+                                    entry.getKey(), entry.getValue().getCountChange());
+                        }
                     }
                 }
             }, 0, 1, TimeUnit.SECONDS);
@@ -98,6 +102,10 @@ public class RemotingStats {
     
     public static void close() {
         scheduledExecutorService.shutdownNow();
+    }
+    
+    public static void setLogTimeStat(boolean logTimeStat) {
+        RemotingStats.logTimeStat = logTimeStat;
     }
 
 }

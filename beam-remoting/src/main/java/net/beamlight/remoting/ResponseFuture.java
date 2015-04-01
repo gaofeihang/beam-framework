@@ -20,25 +20,34 @@ public class ResponseFuture implements Future<RemotingResponse> {
     
     private static final Logger logger = LoggerFactory.getLogger(ResponseFuture.class); 
     
-    private static ConcurrentHashMap<Integer, ResponseFuture> futureMap = new ConcurrentHashMap<Integer, ResponseFuture>();
+    private static final int DEFAULT_TIMEOUT = 1000;
+    
+    private static final ConcurrentHashMap<Long, ResponseFuture> futureMap = new ConcurrentHashMap<Long, ResponseFuture>();
+    
+    private long start = System.currentTimeMillis();
+    private long id;
+    private volatile RemotingResponse response;
+    private int timeout;
     
     private Lock lock = new ReentrantLock();
     private Condition condition = lock.newCondition();
     
-    private Integer requestId;
-    private volatile RemotingResponse response;
+    public ResponseFuture(long id) {
+        this(id, DEFAULT_TIMEOUT);
+    }
     
-    public ResponseFuture(Integer requestId) {
-        this.requestId = requestId;
+    public ResponseFuture(long id, int timeout) {
+        this.id = id;
+        this.timeout = timeout;
         
-        if (futureMap.putIfAbsent(requestId, this) != null) {
-            logger.warn("requestId conflict: {}, thread: {}", requestId, Thread.currentThread().getName());
+        if (futureMap.putIfAbsent(id, this) != null) {
+            logger.warn("requestId conflict: {}, thread: {}", id, Thread.currentThread().getName());
         }
     }
     
     public static void receiveResponse(RemotingResponse response) {
-        Integer requestId = response.getId();
-        ResponseFuture future = futureMap.remove(requestId);
+        long id = response.getId();
+        ResponseFuture future = futureMap.remove(id);
         if (future != null) {
             future.setResponse(response);
         }
@@ -67,7 +76,7 @@ public class ResponseFuture implements Future<RemotingResponse> {
 
     @Override
     public boolean isDone() {
-        return false;
+        return response == null;
     }
 
     @Override
@@ -78,7 +87,7 @@ public class ResponseFuture implements Future<RemotingResponse> {
             condition.await();
             return response;
         } finally {
-            futureMap.remove(requestId);
+            futureMap.remove(id);
             lock.unlock();
         }
     }
@@ -91,9 +100,37 @@ public class ResponseFuture implements Future<RemotingResponse> {
             condition.await(timeout, unit);
             return response;
         } finally {
-            futureMap.remove(requestId);
+            futureMap.remove(id);
             lock.unlock();
         }
+    }
+    
+    private static class TimeoutScan implements Runnable {
+
+        public void run() {
+            while (true) {
+                try {
+                    for (ResponseFuture future : futureMap.values()) {
+                        if (future == null || future.isDone()) {
+                            continue;
+                        }
+                        if (System.currentTimeMillis() - future.start > future.timeout) {
+                            RemotingResponse response = new RemotingResponse(future.id, null);
+                            ResponseFuture.receiveResponse(response);
+                        }
+                    }
+                    Thread.sleep(30);
+                } catch (Throwable e) {
+                    logger.error("Exception when scan the timeout invocation of remoting.", e);
+                }
+            }
+        }
+    }
+
+    static {
+        Thread th = new Thread(new TimeoutScan(), "BeamRemotingTimeoutScanner");
+        th.setDaemon(true);
+        th.start();
     }
 
 }

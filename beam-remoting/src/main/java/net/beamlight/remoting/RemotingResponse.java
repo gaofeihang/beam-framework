@@ -6,15 +6,15 @@ package net.beamlight.remoting;
  */
 public class RemotingResponse {
     
-    private int id;
+    private long id;
     private Object model;
     
-    public RemotingResponse(int id, Object model) {
+    public RemotingResponse(long id, Object model) {
         this.id = id;
         this.model = model;
     }
     
-    public int getId() {
+    public long getId() {
         return id;
     }
     
