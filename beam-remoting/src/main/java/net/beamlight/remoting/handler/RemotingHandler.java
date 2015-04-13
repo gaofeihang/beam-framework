@@ -13,7 +13,7 @@ import net.beamlight.remoting.util.PacketUtils;
 public class RemotingHandler {
     
     public static BeamPacket handleRequest(BeamPacket reqPacket, Object response) {
-        return PacketUtils.encode(response, reqPacket.getId(), Protocol.CMD_RESPONSE, reqPacket.getCodec());
+        return PacketUtils.encodeResponse(response, reqPacket.getId(), Protocol.CMD_RESPONSE, reqPacket.getCodec());
     }
     
     public static void handleResponse(BeamPacket packet) {

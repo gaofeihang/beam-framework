@@ -39,7 +39,7 @@ public abstract class AbstractBeamClient implements BeamClient {
         doWrite(packet);
         
         try {
-            RemotingResponse response = responseFuture.get(1000, TimeUnit.MILLISECONDS);
+            RemotingResponse response = responseFuture.get(packet.getTimeout(), TimeUnit.MILLISECONDS);
             return response.getModel();
         } catch (Exception e) {
             logger.error("Receive response timeout! request: {}", packet);

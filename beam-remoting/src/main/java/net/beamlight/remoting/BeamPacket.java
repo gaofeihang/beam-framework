@@ -22,6 +22,8 @@ public class BeamPacket {
     private int length;
     private byte[] data;
     
+    private int timeout = Integer.MAX_VALUE;
+    
     public BeamPacket(long id, byte cmd, byte codec, byte[] data) {
         this.id = id;
         this.version = Protocol.DEFAULT_VERSION;
@@ -94,6 +96,16 @@ public class BeamPacket {
         packet.setVersion(version);
         
         return packet;
+    }
+    
+    public void setTimeout(int timeout) {
+        if (timeout > 0) {
+            this.timeout = timeout;
+        }
+    }
+    
+    public int getTimeout() {
+        return timeout;
     }
     
     @Override

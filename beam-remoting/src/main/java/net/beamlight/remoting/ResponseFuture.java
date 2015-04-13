@@ -128,9 +128,9 @@ public class ResponseFuture implements Future<RemotingResponse> {
     }
 
     static {
-        Thread th = new Thread(new TimeoutScan(), "BeamRemotingTimeoutScanner");
-        th.setDaemon(true);
-        th.start();
+        Thread t = new Thread(new TimeoutScan(), "BeamRemotingTimeoutScanner");
+        t.setDaemon(true);
+        t.start();
     }
 
 }
