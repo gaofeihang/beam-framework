@@ -17,6 +17,11 @@
     </dependency>
     <dependency>
         <groupId>net.beamlight</groupId>
+        <artifactId>beam-core</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+        <groupId>net.beamlight</groupId>
         <artifactId>beam-remoting</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </dependency>
