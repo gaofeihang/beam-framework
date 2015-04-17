@@ -5,8 +5,10 @@ import java.nio.ByteBuffer;
 import net.beamlight.commons.util.ByteArrayUtils;
 
 /**
+ * Created on Mar 9, 2015
+ * 
  * @author gaofeihang
- * @since Mar 9, 2015
+ * @since 1.0.0
  */
 public class BeamPacket {
     

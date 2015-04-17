@@ -10,8 +10,10 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
+ * Created on Feb 3, 2015
+ * 
  * @author gaofeihang
- * @since Feb 3, 2015
+ * @since 1.0.0
  */
 public class MsgPackUtils {
 

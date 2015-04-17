@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Created on Feb 25, 2015
+ * 
  * @author gaofeihang
- * @since Feb 25, 2015
+ * @since 1.0.0
  */
 public class ParamUtils {
 	

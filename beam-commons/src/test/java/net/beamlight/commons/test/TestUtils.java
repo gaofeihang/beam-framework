@@ -2,8 +2,10 @@ package net.beamlight.commons.test;
 
 
 /**
+ * Created on Feb 3, 2015
+ * 
  * @author gaofeihang
- * @since Feb 3, 2015
+ * @since 1.0.0
  */
 public class TestUtils {
     

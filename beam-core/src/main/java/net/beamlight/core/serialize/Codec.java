@@ -1,8 +1,10 @@
 package net.beamlight.core.serialize;
 
 /**
+ * Created on Mar 13, 2015
+ * 
  * @author gaofeihang
- * @since Mar 13, 2015
+ * @since 1.0.0
  */
 public class Codec {
     

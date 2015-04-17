@@ -6,8 +6,10 @@ import java.net.Socket;
 import java.net.SocketAddress;
 
 /**
+ * Created on Feb 11, 2015
+ * 
  * @author gaofeihang
- * @since Feb 11, 2015
+ * @since 1.0.0
  */
 public class HostPort implements Serializable {
 

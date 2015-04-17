@@ -5,8 +5,10 @@ import java.nio.charset.Charset;
 import net.beamlight.commons.util.JsonUtils;
 
 /**
+ * Created on Mar 10, 2015
+ * 
  * @author gaofeihang
- * @since Mar 10, 2015
+ * @since 1.0.0
  */
 public class JsonSerializer implements Serializer {
     

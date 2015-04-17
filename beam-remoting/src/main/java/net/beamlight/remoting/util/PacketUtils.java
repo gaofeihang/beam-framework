@@ -5,8 +5,10 @@ import net.beamlight.remoting.BeamPacket;
 import net.beamlight.remoting.Protocol;
 
 /**
+ * Created on Mar 11, 2015
+ * 
  * @author gaofeihang
- * @since Mar 11, 2015
+ * @since 1.0.0
  */
 public class PacketUtils {
     

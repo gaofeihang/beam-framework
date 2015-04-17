@@ -3,8 +3,10 @@ package net.beamlight.remoting;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
+ * Created on Mar 9, 2015
+ * 
  * @author gaofeihang
- * @since Mar 9, 2015
+ * @since 1.0.0
  */
 public class Protocol {
     

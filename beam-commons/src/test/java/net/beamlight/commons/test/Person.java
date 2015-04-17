@@ -1,8 +1,10 @@
 package net.beamlight.commons.test;
 
 /**
+ * Created on Jan 31, 2015
+ * 
  * @author gaofeihang
- * @since Jan 31, 2015
+ * @since 1.0.0
  */
 public class Person {
 	

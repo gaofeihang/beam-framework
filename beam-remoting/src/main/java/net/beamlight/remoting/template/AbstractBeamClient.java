@@ -12,8 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Created on Mar 11, 2015
+ * 
  * @author gaofeihang
- * @since Mar 11, 2015
+ * @since 1.0.0
  */
 public abstract class AbstractBeamClient implements BeamClient {
     

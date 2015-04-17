@@ -13,8 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Created on Jan 30, 2015
+ * 
  * @author gaofeihang
- * @since Jan 30, 2015
+ * @since 1.0.0
  */
 public class MsgPackUtilsTest {
     

@@ -13,8 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Created on Feb 12, 2015
+ * 
  * @author gaofeihang
- * @since Feb 12, 2015
+ * @since 1.0.0
  */
 public class ResponseFuture implements Future<RemotingResponse> {
     

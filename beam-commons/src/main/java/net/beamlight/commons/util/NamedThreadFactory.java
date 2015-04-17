@@ -4,8 +4,10 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * Created on Mar 2, 2015
+ * 
  * @author gaofeihang
- * @since Mar 2, 2015
+ * @since 1.0.0
  */
 public class NamedThreadFactory implements ThreadFactory {
 

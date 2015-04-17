@@ -9,8 +9,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 /**
+ * Created on Jan 31, 2015
+ * 
  * @author gaofeihang
- * @since Jan 31, 2015
+ * @since 1.0.0
  */
 public class JsonUtils {
 
