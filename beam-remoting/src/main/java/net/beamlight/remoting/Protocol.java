@@ -10,8 +10,6 @@ public class Protocol {
     
     private static final AtomicLong REQ_ID = new AtomicLong(0);
     
-    public static final byte DEFAULT_VERSION = 1;
-    
     public static final byte CMD_REQUEST = 1;
     public static final byte CMD_RESPONSE = 2;
     

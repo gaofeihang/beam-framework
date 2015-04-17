@@ -11,12 +11,11 @@ import net.beamlight.commons.util.ByteArrayUtils;
 public class BeamPacket {
     
     public static final short MAGIC = (short) 0xBEAF;
-    public static final int LENGTH_FIELD_OFFSET = 2 + 8 + 1 + 1 + 1;
+    public static final int LENGTH_FIELD_OFFSET = 2 + 8 + 1 + 1;
     public static final int LENGTH_FIELD_LENGTH = 4;
     public static final int BASE_LENGTH = LENGTH_FIELD_OFFSET + LENGTH_FIELD_LENGTH;
     
     private long id = -1;
-    private byte version;
     private byte cmd;
     private byte codec;
     private int length;
@@ -26,7 +25,6 @@ public class BeamPacket {
     
     public BeamPacket(long id, byte cmd, byte codec, byte[] data) {
         this.id = id;
-        this.version = Protocol.DEFAULT_VERSION;
         this.cmd = cmd;
         this.codec = codec;
         this.data = data;
@@ -35,14 +33,6 @@ public class BeamPacket {
     
     public long getId() {
         return id;
-    }
-    
-    public void setVersion(byte version) {
-        this.version = version;
-    }
-    
-    public byte getVersion() {
-        return version;
     }
     
     public byte getCmd() {
@@ -70,7 +60,6 @@ public class BeamPacket {
         
         buffer.putShort(MAGIC);
         buffer.putLong(id);
-        buffer.put(version);
         buffer.put(cmd);
         buffer.put(codec);
         buffer.putInt(length);
@@ -84,7 +73,6 @@ public class BeamPacket {
         
         buffer.getShort();
         long id = buffer.getLong();
-        byte version = buffer.get();
         byte cmd = buffer.get();
         byte codec = buffer.get();
         int length = buffer.getInt();
@@ -92,10 +80,7 @@ public class BeamPacket {
         byte[] data = new byte[length];
         buffer.get(data);
         
-        BeamPacket packet = new BeamPacket(id, cmd, codec, data);
-        packet.setVersion(version);
-        
-        return packet;
+        return new BeamPacket(id, cmd, codec, data);
     }
     
     public void setTimeout(int timeout) {
@@ -111,7 +96,6 @@ public class BeamPacket {
     @Override
     public String toString() {
         return "[id=" + id + 
-                ", version=" + version + 
                 ", cmd=" + cmd + 
                 ", codec=" + codec + 
                 ", data=" + ByteArrayUtils.prettyPrint(data) + "]";
