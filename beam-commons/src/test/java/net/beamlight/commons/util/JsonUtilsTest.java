@@ -18,12 +18,12 @@ import org.slf4j.LoggerFactory;
  */
 public class JsonUtilsTest {
     
-    private static final Logger logger = LoggerFactory.getLogger(JsonUtilsTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JsonUtilsTest.class);
 	
 	@Test
 	public void testToJson() {
 	    Person person = TestUtils.defaultPerson();
-	    logger.info(JsonUtils.toJSON(person));
+	    LOG.info(JsonUtils.toJSON(person));
 	}
 	
 	@Test
@@ -31,10 +31,10 @@ public class JsonUtilsTest {
 		Person person = TestUtils.defaultPerson();
 		
 		String jsonStr = JsonUtils.toJSON(person);
-		logger.info(jsonStr);
+		LOG.info(jsonStr);
 		
 		person = JsonUtils.toT(jsonStr, Person.class);
-		logger.info(JsonUtils.prettyPrint(person));
+		LOG.info(JsonUtils.prettyPrint(person));
 	}
 	
 	@Test
@@ -42,16 +42,16 @@ public class JsonUtilsTest {
 	    Person person = TestUtils.defaultPerson();
 		
 		String jsonStr = JsonUtils.toJSON(person);
-		logger.info(jsonStr);
+		LOG.info(jsonStr);
 		
 		Map<String, Object> map = JsonUtils.toMap(jsonStr);
-		logger.info(JsonUtils.prettyPrint(map));
+		LOG.info(JsonUtils.prettyPrint(map));
 	}
 	
 	@Test
 	public void testPrettyPrint() {
 	    Person person = TestUtils.defaultPerson();
-		logger.info(JsonUtils.prettyPrint(person));
+		LOG.info(JsonUtils.prettyPrint(person));
 	}
 
 }

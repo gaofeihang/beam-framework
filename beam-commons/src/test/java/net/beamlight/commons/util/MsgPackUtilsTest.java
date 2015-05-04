@@ -20,14 +20,14 @@ import org.slf4j.LoggerFactory;
  */
 public class MsgPackUtilsTest {
     
-    private static final Logger logger = LoggerFactory.getLogger(MsgPackUtilsTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MsgPackUtilsTest.class);
 	
 	@Test
 	public void testEncode() {
 	    Person person = TestUtils.defaultPerson();
 	    
 	    byte[] bytes = MsgPackUtils.encode(person);
-	    logger.info(ByteArrayUtils.prettyPrint(bytes));
+	    LOG.info(ByteArrayUtils.prettyPrint(bytes));
 	}
 	
 	@Test
@@ -35,10 +35,10 @@ public class MsgPackUtilsTest {
 		Person person = TestUtils.defaultPerson();
 		
 		byte[] bytes = MsgPackUtils.encode(person);
-		logger.info(ByteArrayUtils.prettyPrint(bytes));
+		LOG.info(ByteArrayUtils.prettyPrint(bytes));
 		
 		person = MsgPackUtils.decode(bytes, Person.class);
-		logger.info(JsonUtils.prettyPrint(person));
+		LOG.info(JsonUtils.prettyPrint(person));
 	}
 	
 	@Test
@@ -46,16 +46,16 @@ public class MsgPackUtilsTest {
 	    Person person = TestUtils.defaultPerson();
         
         byte[] bytes = MsgPackUtils.encode(person);
-        logger.info(ByteArrayUtils.prettyPrint(bytes));
+        LOG.info(ByteArrayUtils.prettyPrint(bytes));
 		
 		Map<String, Object> map = MsgPackUtils.toMap(bytes);
-		logger.info(JsonUtils.prettyPrint(map));
+		LOG.info(JsonUtils.prettyPrint(map));
 	}
 	
     @Test
     public void testException() {
         Map<String, Object> map = MsgPackUtils.toMap(new byte[] { 1 });
-        logger.info(JsonUtils.prettyPrint(map));
+        LOG.info(JsonUtils.prettyPrint(map));
     }
 
 }

@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
  */
 public class RemotingStats {
     
-    private static final Logger logger = LoggerFactory.getLogger(RemotingStats.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RemotingStats.class);
     
     private static Counter readCounter = new Counter();
     private static Counter writeCounter = new Counter();
@@ -51,7 +51,7 @@ public class RemotingStats {
                 
                 @Override
                 public void run() {
-                    logger.warn(appName + " Stats - read: {}, write: {}",
+                    LOG.warn(appName + " Stats - read: {}, write: {}",
                             readCounter.getCountChange(),
                             writeCounter.getCountChange());
                 }
@@ -68,7 +68,7 @@ public class RemotingStats {
                     if (average > 0) {
                         round++;
                     }
-                    logger.warn(appName + " Average - Round: {}, QPS: {}, Max: {}", round, average, maxAverage);
+                    LOG.warn(appName + " Average - Round: {}, QPS: {}, Max: {}", round, average, maxAverage);
                             
                 }
             }, 0, interval, TimeUnit.SECONDS);
