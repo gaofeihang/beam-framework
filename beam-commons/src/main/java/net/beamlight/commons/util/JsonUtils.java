@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  */
 public class JsonUtils {
 
-	private static final Logger logger = LoggerFactory.getLogger(JsonUtils.class);
+	private static final Logger LOG = LoggerFactory.getLogger(JsonUtils.class);
 
 	private static ThreadLocal<ObjectMapper> objMapperLocal = new ThreadLocal<ObjectMapper>() {
 		@Override
@@ -37,7 +37,7 @@ public class JsonUtils {
 		try {
 			result = objMapperLocal.get().writeValueAsString(value);
 		} catch (Exception e) {
-			logger.error("toJSON error: {}", value, e);
+			LOG.error("toJSON error: {}", value, e);
 		}
 		// fix null string
 		if ("null".equals(result)) {
@@ -50,7 +50,7 @@ public class JsonUtils {
 		try {
 			return objMapperLocal.get().readValue(jsonString, clazz);
 		} catch (Exception e) {
-		    logger.error("toT error: {}", jsonString, e);
+		    LOG.error("toT error: {}", jsonString, e);
 		}
 		return null;
 	}
@@ -65,7 +65,7 @@ public class JsonUtils {
 		try {
 			result = prettyObjMapperLocal.get().writeValueAsString(value);
 		} catch (Exception e) {
-			logger.error("prettyPrint error: {}", value, e);
+			LOG.error("prettyPrint error: {}", value, e);
 		}
 		// fix null string
 		if ("null".equals(result)) {

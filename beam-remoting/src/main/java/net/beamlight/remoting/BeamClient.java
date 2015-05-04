@@ -1,6 +1,7 @@
 package net.beamlight.remoting;
 
 import net.beamlight.remoting.exception.RemotingException;
+import net.beamlight.remoting.handler.PacketHandler;
 
 /**
  * Created on Mar 9, 2015
@@ -17,5 +18,7 @@ public interface BeamClient {
     void send(BeamPacket packet) throws RemotingException;
     
     BeamPacket sendAndGet(BeamPacket packet) throws RemotingException;
+    
+    void setHandler(PacketHandler handler);
 
 }

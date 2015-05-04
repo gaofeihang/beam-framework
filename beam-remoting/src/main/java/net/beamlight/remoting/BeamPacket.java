@@ -15,30 +15,30 @@ public class BeamPacket {
     public static final short MAGIC = (short) 0xBEAF;
     public static final int LENGTH_FIELD_OFFSET = 2 + 8 + 1 + 1;
     public static final int LENGTH_FIELD_LENGTH = 4;
-    public static final int BASE_LENGTH = LENGTH_FIELD_OFFSET + LENGTH_FIELD_LENGTH;
+    public static final int HEADER_LENGTH = LENGTH_FIELD_OFFSET + LENGTH_FIELD_LENGTH;
     
     private long id = -1;
-    private byte cmd;
+    private byte type;
     private byte codec;
     private int length;
-    private byte[] data;
+    private byte[] body;
     
     private int timeout = Integer.MAX_VALUE;
     
-    public BeamPacket(long id, byte cmd, byte codec, byte[] data) {
+    public BeamPacket(long id, byte type, byte codec, byte[] body) {
         this.id = id;
-        this.cmd = cmd;
+        this.type = type;
         this.codec = codec;
-        this.data = data;
-        this.length = data.length;
+        this.body = body;
+        this.length = body.length;
     }
     
     public long getId() {
         return id;
     }
     
-    public byte getCmd() {
-        return cmd;
+    public byte getType() {
+        return type;
     }
     
     public byte getCodec() {
@@ -49,12 +49,12 @@ public class BeamPacket {
         return length;
     }
     
-    public byte[] getData() {
-        return data;
+    public byte[] getBody() {
+        return body;
     }
     
     public int getPacketLength() {
-        return BASE_LENGTH + length;
+        return HEADER_LENGTH + length;
     }
     
     public byte[] toByteArray() {
@@ -62,10 +62,10 @@ public class BeamPacket {
         
         buffer.putShort(MAGIC);
         buffer.putLong(id);
-        buffer.put(cmd);
+        buffer.put(type);
         buffer.put(codec);
         buffer.putInt(length);
-        buffer.put(data);
+        buffer.put(body);
         
         return buffer.array();
     }
@@ -75,14 +75,14 @@ public class BeamPacket {
         
         buffer.getShort();
         long id = buffer.getLong();
-        byte cmd = buffer.get();
+        byte type = buffer.get();
         byte codec = buffer.get();
         int length = buffer.getInt();
         
-        byte[] data = new byte[length];
-        buffer.get(data);
+        byte[] body = new byte[length];
+        buffer.get(body);
         
-        return new BeamPacket(id, cmd, codec, data);
+        return new BeamPacket(id, type, codec, body);
     }
     
     public void setTimeout(int timeout) {
@@ -98,9 +98,9 @@ public class BeamPacket {
     @Override
     public String toString() {
         return "[id=" + id + 
-                ", cmd=" + cmd + 
+                ", type=" + type + 
                 ", codec=" + codec + 
-                ", data=" + ByteArrayUtils.prettyPrint(data) + "]";
+                ", body=" + ByteArrayUtils.prettyPrint(body) + "]";
     }
 
 }

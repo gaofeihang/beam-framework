@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ResponseFuture implements Future<RemotingResponse> {
     
-    private static final Logger logger = LoggerFactory.getLogger(ResponseFuture.class); 
+    private static final Logger LOG = LoggerFactory.getLogger(ResponseFuture.class); 
     
     private static final int DEFAULT_TIMEOUT = 1000;
     
@@ -43,7 +43,7 @@ public class ResponseFuture implements Future<RemotingResponse> {
         this.timeout = timeout;
         
         if (futureMap.putIfAbsent(id, this) != null) {
-            logger.warn("requestId conflict: {}, thread: {}", id, Thread.currentThread().getName());
+            LOG.warn("requestId conflict: {}, thread: {}", id, Thread.currentThread().getName());
         }
     }
     
@@ -123,7 +123,7 @@ public class ResponseFuture implements Future<RemotingResponse> {
                     }
                     Thread.sleep(30);
                 } catch (Throwable e) {
-                    logger.error("Exception when scan the timeout invocation of remoting.", e);
+                    LOG.error("Exception when scan the timeout invocation of remoting.", e);
                 }
             }
         }

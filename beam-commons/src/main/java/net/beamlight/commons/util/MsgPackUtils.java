@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class MsgPackUtils {
 
-    private static final Logger logger = LoggerFactory.getLogger(MsgPackUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MsgPackUtils.class);
 
     private static ThreadLocal<ObjectMapper> msgPackLocal = new ThreadLocal<ObjectMapper>() {
         @Override
@@ -31,7 +31,7 @@ public class MsgPackUtils {
         try {
             return msgPackLocal.get().writeValueAsBytes(value);
         } catch (Exception e) {
-            logger.error("encode error: {}", value, e);
+            LOG.error("encode error: {}", value, e);
             return null;
         }
     }
@@ -40,7 +40,7 @@ public class MsgPackUtils {
         try {
             return msgPackLocal.get().readValue(bytes, clazz);
         } catch (Exception e) {
-            logger.error("decode error: {}", ByteArrayUtils.prettyPrint(bytes), e);
+            LOG.error("decode error: {}", ByteArrayUtils.prettyPrint(bytes), e);
             return null;
         }
     }

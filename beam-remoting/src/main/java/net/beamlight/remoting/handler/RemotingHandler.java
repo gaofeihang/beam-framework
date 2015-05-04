@@ -9,13 +9,14 @@ import net.beamlight.remoting.util.PacketUtils;
 /**
  * Created on Mar 11, 2015
  * 
+ * 
  * @author gaofeihang
  * @since 1.0.0
  */
 public class RemotingHandler {
     
-    public static BeamPacket handleRequest(BeamPacket reqPacket, Object response) {
-        return PacketUtils.encodeResponse(response, reqPacket.getId(), Protocol.CMD_RESPONSE, reqPacket.getCodec());
+    public static BeamPacket buildResponsePacket(BeamPacket reqPacket, Object response) {
+        return PacketUtils.encodeResponse(response, reqPacket.getId(), Protocol.PACKET_RESPONSE, reqPacket.getCodec());
     }
     
     public static void handleResponse(BeamPacket packet) {

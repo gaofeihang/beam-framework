@@ -58,7 +58,7 @@ public class BeamClientBenchmark {
                         for (int j = 0; j < loopNum; j++) {
                             try {
                                 client.sendAndGet(
-                                        PacketUtils.encodeRequest(new BeamRequest("test"), Protocol.CMD_REQUEST, Codec.MSGPACK));
+                                        PacketUtils.encodeRequest(new BeamRequest("test"), Protocol.PACKET_REQUEST, Codec.MSGPACK));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

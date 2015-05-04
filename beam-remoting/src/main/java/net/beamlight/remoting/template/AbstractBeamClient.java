@@ -7,6 +7,7 @@ import net.beamlight.remoting.BeamPacket;
 import net.beamlight.remoting.RemotingResponse;
 import net.beamlight.remoting.ResponseFuture;
 import net.beamlight.remoting.exception.RemotingException;
+import net.beamlight.remoting.handler.PacketHandler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,14 +20,20 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractBeamClient implements BeamClient {
     
-    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+    protected final Logger LOG = LoggerFactory.getLogger(this.getClass());
     
     protected String host;
     protected int port;
+    protected PacketHandler handler;
     
     public AbstractBeamClient(String host, int port) {
         this.host = host;
         this.port = port;
+    }
+    
+    @Override
+    public void setHandler(PacketHandler handler) {
+        this.handler = handler;
     }
     
     @Override
@@ -44,7 +51,7 @@ public abstract class AbstractBeamClient implements BeamClient {
             RemotingResponse response = responseFuture.get(packet.getTimeout(), TimeUnit.MILLISECONDS);
             return response.getModel();
         } catch (Exception e) {
-            logger.error("Receive response timeout! request: {}", packet);
+            LOG.error("Receive response timeout! request: {}", packet);
         }
         return null;
     }
