@@ -1,8 +1,6 @@
 package net.beamlight.remoting.netty;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBufAllocator;
-import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -39,13 +37,11 @@ public class NettyBeamClient extends AbstractBeamClient {
     public void open() throws RemotingException {
         workerGroup = new NioEventLoopGroup();
         
-        ByteBufAllocator allocator = new PooledByteBufAllocator();
-        
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(workerGroup)
             .channel(NioSocketChannel.class)
             .option(ChannelOption.SO_KEEPALIVE, true)
-            .option(ChannelOption.ALLOCATOR, allocator)
+            .option(ChannelOption.ALLOCATOR, NettyConfig.getAllocator())
             .handler(new ChannelInitializer<SocketChannel>() {
                 
             @Override
@@ -62,7 +58,7 @@ public class NettyBeamClient extends AbstractBeamClient {
             e.printStackTrace();
         }
         
-        LOG.warn("Netty 5 beam client started!");
+        LOG.warn("Netty beam client started!");
     }
     
     @Override

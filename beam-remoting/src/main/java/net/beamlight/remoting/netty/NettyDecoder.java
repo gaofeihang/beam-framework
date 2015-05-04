@@ -30,8 +30,7 @@ public class NettyDecoder extends LengthFieldBasedFrameDecoder {
         byte type = frame.readByte();
         byte codec = frame.readByte();
         int length = frame.readInt();
-        
-        byte[] body = frame.slice(BeamPacket.HEADER_LENGTH, length).array();
+        byte[] body = new byte[length];
         frame.readBytes(body);
         
         frame.release();

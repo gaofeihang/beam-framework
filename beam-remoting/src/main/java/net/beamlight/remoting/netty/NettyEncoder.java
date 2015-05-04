@@ -30,7 +30,7 @@ public class NettyEncoder extends MessageToByteEncoder<BeamPacket> {
     protected ByteBuf allocateBuffer(ChannelHandlerContext ctx, BeamPacket msg, boolean preferDirect) throws Exception {
         
         BeamPacket packet = (BeamPacket) msg;
-        return ctx.alloc().heapBuffer(packet.getPacketLength()); 
+        return ctx.alloc().buffer(packet.getPacketLength()); 
     }
 
 }

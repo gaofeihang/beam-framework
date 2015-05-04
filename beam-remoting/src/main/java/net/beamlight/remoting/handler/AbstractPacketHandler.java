@@ -19,15 +19,15 @@ public abstract class AbstractPacketHandler implements PacketHandler {
             return RemotingHandler.buildResponsePacket(packet, handleRequest(packet));
             
         case Protocol.PACKET_RESPONSE:
-            RemotingHandler.handleResponse(packet);
+            handleResponse(packet);
             break;
             
         case Protocol.PACKET_MESSAGE:
-            RemotingHandler.handleResponse(packet);
+            handleMessage(packet);
             break;
         
         case Protocol.PACKET_HEARTBEAT:
-            RemotingHandler.handleResponse(packet);
+            handleHeartbeat(packet);
             break;
 
         default:
@@ -35,6 +35,10 @@ public abstract class AbstractPacketHandler implements PacketHandler {
         }
         
         return null;
+    }
+    
+    protected void handleResponse(BeamPacket packet) {
+        RemotingHandler.handleResponse(packet);
     }
     
     protected abstract Object handleRequest(BeamPacket packet);

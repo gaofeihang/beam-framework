@@ -8,7 +8,7 @@ import net.beamlight.remoting.BeamPacket;
  * @author gaofeihang
  * @since 1.0.0
  */
-public class DefaultPacketHandler extends AbstractPacketHandler {
+public class PacketHandlerAdapter extends AbstractPacketHandler {
 
     @Override
     protected Object handleRequest(BeamPacket packet) {

@@ -5,7 +5,6 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import net.beamlight.remoting.BeamPacket;
-import net.beamlight.remoting.handler.DefaultPacketHandler;
 import net.beamlight.remoting.handler.PacketHandler;
 import net.beamlight.remoting.stat.RemotingStats;
 
@@ -25,11 +24,10 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
     private PacketHandler handler;
     
     public NettyServerHandler(PacketHandler handler) {
-        if (handler != null) {
-            this.handler = handler;
-        } else {
-            this.handler = new DefaultPacketHandler();
+        if (handler == null) {
+            throw new IllegalArgumentException("Packet handler cannot be null!");
         }
+        this.handler = handler;
     }
     
     @Override

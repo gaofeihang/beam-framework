@@ -6,7 +6,6 @@ import net.beamlight.commons.util.ThreadUtils;
 import net.beamlight.core.serialize.Codec;
 import net.beamlight.remoting.BeamClient;
 import net.beamlight.remoting.BeamPacket;
-import net.beamlight.remoting.Protocol;
 import net.beamlight.remoting.util.PacketUtils;
 
 /**
@@ -31,9 +30,11 @@ public class BeamClientBootstrap {
             
             for (int i = 0; i < msgCount; i++) {
                 BeamPacket respPacket = client.sendAndGet(
-                        PacketUtils.encodeRequest(new BeamRequest("test"), Protocol.PACKET_REQUEST, Codec.MSGPACK));
-                BeamResponse response = PacketUtils.decode(respPacket, BeamResponse.class);
-                System.out.println(response);
+                        PacketUtils.encodeRequest(new BeamRequest("test-service"), Codec.MSGPACK));
+                if (respPacket != null) {
+                    BeamResponse response = PacketUtils.decode(respPacket, BeamResponse.class);
+                    System.out.println(response);
+                }
             }
             
             ThreadUtils.sleep(100);

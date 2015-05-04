@@ -1,12 +1,11 @@
 package net.beamlight.remoting.stat;
 
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import net.beamlight.commons.frame.Constants;
 import net.beamlight.commons.util.Counter;
 
 import org.slf4j.Logger;
@@ -24,7 +23,6 @@ public class RemotingStats {
     
     private static Counter readCounter = new Counter();
     private static Counter writeCounter = new Counter();
-    private static ConcurrentHashMap<String, Counter> ioWriteCounters = new ConcurrentHashMap<String, Counter>();
     
     private static int round;
     private static long maxAverage;
@@ -34,9 +32,7 @@ public class RemotingStats {
     private static ScheduledExecutorService scheduledExecutorService;
     private static AtomicBoolean inited = new AtomicBoolean(false);
     
-    private static String appName = System.getProperty("beam.appName", "");
-    
-    private static boolean logTimeStat = false;
+    private static String appName = System.getProperty(Constants.KEY_APP_NAME, "");
     
     public static void recordRead() {
         readCounter.inc();
@@ -46,15 +42,6 @@ public class RemotingStats {
         writeCounter.inc();
     }
     
-    public static void recordWriiteTime(long time) {
-        String threadName = Thread.currentThread().getName();
-        Counter counter = ioWriteCounters.get(threadName);
-        if (counter == null) {
-            ioWriteCounters.putIfAbsent(threadName, new Counter());
-        } else {
-            counter.inc(time);
-        }
-    }
     
     public static void start() {
         
@@ -67,13 +54,6 @@ public class RemotingStats {
                     logger.warn(appName + " Stats - read: {}, write: {}",
                             readCounter.getCountChange(),
                             writeCounter.getCountChange());
-                    
-                    if (logTimeStat) {
-                        for (Entry<String, Counter> entry : ioWriteCounters.entrySet()) {
-                            logger.warn(appName + " IoStats - thread: {}, time: {}",
-                                    entry.getKey(), entry.getValue().getCountChange());
-                        }
-                    }
                 }
             }, 0, 1, TimeUnit.SECONDS);
             
@@ -104,10 +84,6 @@ public class RemotingStats {
     
     public static void close() {
         scheduledExecutorService.shutdownNow();
-    }
-    
-    public static void setLogTimeStat(boolean logTimeStat) {
-        RemotingStats.logTimeStat = logTimeStat;
     }
 
 }

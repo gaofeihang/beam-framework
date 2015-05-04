@@ -8,7 +8,7 @@ import net.beamlight.commons.frame.BeamRequest;
 import net.beamlight.commons.util.ThreadUtils;
 import net.beamlight.core.serialize.Codec;
 import net.beamlight.remoting.BeamClient;
-import net.beamlight.remoting.Protocol;
+import net.beamlight.remoting.BeamPacket;
 import net.beamlight.remoting.exception.RemotingException;
 import net.beamlight.remoting.stat.RemotingStats;
 import net.beamlight.remoting.util.PacketUtils;
@@ -57,8 +57,8 @@ public class BeamClientBenchmark {
                     public void run() {
                         for (int j = 0; j < loopNum; j++) {
                             try {
-                                client.sendAndGet(
-                                        PacketUtils.encodeRequest(new BeamRequest("test"), Protocol.PACKET_REQUEST, Codec.MSGPACK));
+                                BeamPacket packet = PacketUtils.encodeRequest(new BeamRequest("test"), Codec.MSGPACK);
+                                client.sendAndGet(packet);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

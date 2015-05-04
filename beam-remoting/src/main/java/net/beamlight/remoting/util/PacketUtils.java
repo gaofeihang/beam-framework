@@ -12,12 +12,12 @@ import net.beamlight.remoting.Protocol;
  */
 public class PacketUtils {
     
-    public static BeamPacket encodeRequest(Object obj, byte type, byte codec) {
-        return encode(obj, Protocol.nextReqId(), type, codec, Protocol.DEFAULT_TIMEOUT);
+    public static BeamPacket encodeRequest(Object obj, byte codec) {
+        return encodeRequest(obj, codec, Protocol.DEFAULT_TIMEOUT);
     }
     
-    public static BeamPacket encodeRequest(Object obj, byte type, byte codec, int timeout) {
-        return encode(obj, Protocol.nextReqId(), type, codec, timeout);
+    public static BeamPacket encodeRequest(Object obj, byte codec, int timeout) {
+        return encode(obj, Protocol.nextReqId(), Protocol.PACKET_REQUEST, codec, timeout);
     }
     
     public static BeamPacket encodeResponse(Object obj, long id, byte type, byte codec) {

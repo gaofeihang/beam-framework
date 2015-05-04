@@ -17,8 +17,15 @@ public class BeamResponse implements Serializable {
     private static final long serialVersionUID = 1L;
     
     private Object result;
-    private Integer ec;
+    private Integer ec = Constants.VALUE_RESPONSE_EC_OK;
     private Map<String, Object> props = new HashMap<String, Object>();
+    
+    public BeamResponse() {
+    }
+    
+    public BeamResponse(Object result) {
+        this.result =result;
+    }
     
     @SuppressWarnings("unchecked")
     public <T> T getResult() {
