@@ -1,14 +1,13 @@
-## Common Framework of Beam Projects
+## Beam Framework
+Common framework of Beam projects
 
-### Usage
-
-#### Installation
+### Installation
 
     git clone https://github.com/gaofeihang/beam-framework.git
     cd beam-framework
     mvn clean install -Dmaven.test.skip
 
-#### Maven Dependency
+### Maven Dependency
 
     <dependency>
         <groupId>net.beamlight</groupId>
@@ -18,10 +17,5 @@
     <dependency>
         <groupId>net.beamlight</groupId>
         <artifactId>beam-core</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-        <groupId>net.beamlight</groupId>
-        <artifactId>beam-remoting</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </dependency>
