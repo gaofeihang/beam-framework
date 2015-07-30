@@ -8,7 +8,6 @@
 	<modules>
 		<module>beam-commons</module>
 		<module>beam-core</module>
-		<module>beam-remoting</module>
 	</modules>
 
 	<dependencyManagement>
